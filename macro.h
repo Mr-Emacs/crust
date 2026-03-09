@@ -25,6 +25,9 @@ FMT_STRUCT(name, \
 #define EMIT_DESC_vec2f(type, name) EMIT_DESC(vec2f, type, name)
 #define EMIT_DESC_ARRAY_vec2f(type, name, size) EMIT_DESC_ARRAY(vec2f, type, name, size)
 
+#define EMIT_DESC_vec3f(type, name) EMIT_DESC(vec3f, type, name)
+#define EMIT_DESC_ARRAY_vec3f(type, name, size) EMIT_DESC_ARRAY(vec3f, type, name, size)
+
 #define EMIT_DESC_player(type, name) EMIT_DESC(player, type, name)
 #define EMIT_DESC_ARRAY_player(type, name, size) EMIT_DESC_ARRAY(player, type, name, size)
 

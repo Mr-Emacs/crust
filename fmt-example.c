@@ -2,7 +2,8 @@
 
 #define FMT_CUSTOM_TYPES \
 rect: _fmt_mk_rect, \
-vec2f: _fmt_mk_vec2f
+vec2f: _fmt_mk_vec2f, \
+vec3f: _fmt_mk_vec3f
 
 #define FMT_IMPLEMENTATION
 #define FMT_STRIP_PREFIX
@@ -14,6 +15,12 @@ vec2f: _fmt_mk_vec2f
     F(i32, z)
 STRUCT(vec2f, vec2f_FIELDS)
 
+#define vec3f_FIELDS(F, A) \
+    F(f32, x)   \
+    F(f32, y)   \
+    F(f32, z)
+STRUCT(vec3f, vec3f_FIELDS)
+
 #define RECT_FIELDS(F, A) \
     F(i32, w) \
     A(i32, v, 2) \
@@ -22,16 +29,14 @@ STRUCT(vec2f, vec2f_FIELDS)
 STRUCT(rect, RECT_FIELDS)
 
 int main(void) {
-    rect r = {
-        .z = {12, 34, 35},
-        .v = {10.0f, 10.0f},
-        .h = 50,
-        .w = 50,
-    };
-
-    println("%", r);
+    rect rec = { .h = 10, .z = {20, 20, 40}};
+    println("%", rec);
 
     vec2f v = { .h = 10.0f, .z = 20.0f};
     println("%", v);
-    println("% % %", 1, 3, 4);
+
+    vec3f v3 = {.x = 10, .y = 20, .z = 40};
+    println("%", v3);
+
+    println("% % %", v3.x, v3.y, v3.z);
 }

@@ -9,6 +9,7 @@ ifeq ($(OS), Windows_NT)
     else
         $(error No supported compiler found on Windows. Install clang or MSVC.)
     endif
+    EXT := .exe
 else
     ifneq ($(shell which gcc 2>/dev/null), )
         CC     = gcc
@@ -19,11 +20,12 @@ else
     else
         $(error No supported compiler found. Install gcc or clang.)
     endif
+    EXT :=
 endif
 
 BUILD   := build/
 NAMES    = metacli-example fmt-example
-TARGETS  = $(addprefix $(BUILD), $(NAMES))
+TARGETS  = $(addprefix $(BUILD), $(addsuffix $(EXT), $(NAMES)))
 
 all: $(BUILD) $(TARGETS)
 
@@ -34,7 +36,7 @@ else
 	mkdir -p $(BUILD)
 endif
 
-$(BUILD)%: %.c
+$(BUILD)%$(EXT): %.c
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
