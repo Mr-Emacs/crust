@@ -1,5 +1,4 @@
 # Compiler
-
 ifeq ($(OS), Windows_NT)
     ifneq ($(shell where clang 2>nul), )
         CC     = clang
@@ -22,11 +21,25 @@ else
     endif
 endif
 
+BUILD   := build/
+NAMES    = metacli-example fmt-example
+TARGETS  = $(addprefix $(BUILD), $(NAMES))
 
-# Compile
-all: metacli-example.exe fmt-example.exe
-metacli-example.exe: metacli-example.c
-	$(CC) $(CFLAGS) metacli-example.c -o metacli-example.exe
+all: $(BUILD) $(TARGETS)
 
-fmt-example.exe: fmt-example.c
-	$(CC) $(CFLAGS) fmt-example.c -o fmt-example.exe
+$(BUILD):
+ifeq ($(OS), Windows_NT)
+	if not exist build md build
+else
+	mkdir -p $(BUILD)
+endif
+
+$(BUILD)%: %.c
+	$(CC) $(CFLAGS) $< -o $@
+
+clean:
+ifeq ($(OS), Windows_NT)
+	if exist build rd /s /q build
+else
+	rm -rf $(BUILD)
+endif
